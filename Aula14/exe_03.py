@@ -1,8 +1,10 @@
 # import pandas as pd
 import polars as pl
+import numpy as np
 from datetime import datetime
 import os
 import gc
+from matplotlib import pyplot as plt
 
 
 ENDERECO_DADOS = r'./Dados/'
@@ -27,7 +29,26 @@ except ImportError as e:
     print('Erro ao ler dados do parquet', e)
 
 
- 
+try:
+    print('Visualizando a distribuição dos valores das parcelas em um boxplot...')
+
+    hora_inicio = datetime.now()
+
+    array_valor_parcela = np.array(df_bolsa_familia['VALOR PARCELA'])
+
+    plt.boxplot(array_valor_parcela, vert=False)
+    plt.title('Distribuição dos valores das parcelas')
+
+    hora_fim = datetime.now()
+
+    plt.show()
+
+    print(f'Tempo de execução: {hora_fim - hora_inicio}')
+
+except ImportError as e:
+    print('Erro ao ler boxplot', e)
+
+
 # try:
 #     print('Obtendo dados...')
    
